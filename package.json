@@ -1,0 +1,70 @@
+{
+  "name": "snippet-injector",
+  "displayName": "Snippet Injector",
+  "description": "Converts code selections (JSON, TypeScript types/interfaces, functions) into derived boilerplate structures (Zod schemas, Vitest unit test stubs, Handlebars templates).",
+  "version": "1.0.0",
+  "publisher": "antigravity",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "Snippets",
+    "Programming Languages"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onCommand:snippetInjector.generateFromSelection"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "snippetInjector.generateFromSelection",
+        "title": "Snippet Injector: Generate Snippet from Selection",
+        "category": "Snippet Injector"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "snippetInjector.generateFromSelection",
+          "group": "modification@100",
+          "when": "editorHasSelection"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "snippetInjector.generateFromSelection",
+        "key": "ctrl+alt+g",
+        "mac": "cmd+alt+g",
+        "when": "editorTextFocus && editorHasSelection"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "node esbuild.js",
+    "watch": "node esbuild.js --watch",
+    "test": "vitest run test/unit",
+    "test:watch": "vitest test/unit",
+    "test:integration": "vscode-test",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@babel/parser": "^7.23.0",
+    "@babel/traverse": "^7.23.0",
+    "@babel/types": "^7.23.0",
+    "handlebars": "^4.7.8",
+    "json5": "^2.2.3"
+  },
+  "devDependencies": {
+    "@types/babel__traverse": "^7.20.4",
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/test-electron": "^2.3.8",
+    "esbuild": "^0.19.8",
+    "typescript": "^5.3.3",
+    "vitest": "^1.1.0"
+  }
+}
